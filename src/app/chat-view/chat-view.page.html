@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+    <ion-title>
+      <div class="Inline"><img src="{{currentData.avatar || 'https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1' }}" class="circular"></div>
+      <div class="Inline"><span style="padding:5px;" >{{currentData.name}}</span></div>
+      
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding #content [scrollEvents]="true" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)" (ionScrollEnd)="logScrollEnd()">
+	<ion-list>
+	<div class="chat" *ngFor="let message of userMessages">
+		<div [class]="message.sender.uid === currentData.uid ? 'message me' : 'message you'">{{message.text}}</div>
+	</div> 
+	</ion-list>
+</ion-content>
+<ion-footer no-border>
+	<ion-toolbar>
+		<div class="bar bar-footer bar-balanced chat-box-container">
+      		<ion-input class="chat-editor-box" placeholder="Type Your Message Here.." type="text" [(ngModel)]="messageText"></ion-input>
+      		<div class="btnSendChatView">
+				<button item-right clear (click)='sendMessage($event)' class = "btnSendChatView">
+				  <ion-icon name="send" class="btnSendChat"></ion-icon>
+				</button>
+			  </div>
+		</div>
+	</ion-toolbar>
+</ion-footer>

@@ -1,0 +1,85 @@
+ion-avatar {
+    max-width: 25px;
+    max-height: 25px;
+}
+.circular{
+    width:24px;
+    height:24px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.Inline{
+
+    display: inline-flex;
+    vertical-align: middle;
+
+}
+
+.chat-box-container{
+    position: fixed;
+    bottom: 2px;
+    display: inline-flex;
+    padding: 0 7px 0 0px;
+    background: white;
+    width: 100%;
+}
+.chat-editor-box{
+    display: inline-flex;
+    justify-items: center;
+    background: white;
+    align-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 24px;
+    padding-left: 4px !important;
+    font-size: 14px;
+    min-height: 38px;
+    max-height: 100px;
+}
+
+
+.btnSendChatView{
+    height: 38px;
+    width: 38px;
+    margin-left: 4px;
+    background: #2636be;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+.btnSendChat{
+    height: 24px;
+    width: 24px;
+}
+
+.chat {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+    
+.message {
+    margin: 0.2em 0;
+    padding: 0.5em;
+    max-width: 70%;
+}
+
+.me {
+    align-self: flex-start;
+    background-color: #F1F0F0;
+    color: black;
+    border-radius: 10px 10px 10px 0px;
+}
+
+.you {
+    align-self: flex-end;
+    background-color:#2636be;
+    color: white;
+    border-radius: 10px 10px 0px 10px;
+}

@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+      <ion-title>
+        <div class="Inline"><img src="{{currentGroupData.icon || 'https://pbs.twimg.com/profile_images/857490466572443648/c05JqEgo_400x400.jpg' }}" class="circular"></div>
+        <div class="Inline"><span style="padding:5px;" >{{currentGroupData.name}}</span></div>  
+      </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding #content [scrollEvents]="true" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)" (ionScrollEnd)="logScrollEnd()">
+      <ion-list>
+      <div class="chat" *ngFor="let message of groupMessages">
+        <div [class]="message.sender.uid === loggedInUserData.uid ? 'message you' : 'message me'"><span><b style="
+          font-size: 10px">{{message.sender.name}}:</b></span><br>{{message.text}}</div>
+      </div> 
+      </ion-list>
+</ion-content>
+
+<ion-footer no-border>
+    <ion-toolbar>
+      <div class="bar bar-footer bar-balanced chat-box-container">
+            <ion-input class="chat-editor-box" placeholder="Type Your Message Here.." type="text" [(ngModel)]="messageText"></ion-input>
+            <div class="btnSendChatView">
+          <button item-right clear (click)='sendMessage($event)' class = "btnSendChatView">
+            <ion-icon name="send" class="btnSendChat"></ion-icon>
+          </button>
+          </div>
+      </div>
+    </ion-toolbar>
+</ion-footer>

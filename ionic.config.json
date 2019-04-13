@@ -1,0 +1,7 @@
+{
+  "name": "CometChatPRO-IonicSampleApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
