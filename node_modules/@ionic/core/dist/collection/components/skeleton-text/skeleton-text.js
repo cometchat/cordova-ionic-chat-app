@@ -1,0 +1,46 @@
+import { hostContext } from '../../utils/theme';
+export class SkeletonText {
+    constructor() {
+        this.animated = false;
+    }
+    calculateWidth() {
+        if (this.width !== undefined) {
+            return {
+                style: {
+                    width: this.width
+                }
+            };
+        }
+        return;
+    }
+    render() {
+        return (h("span", null, "\u00A0"));
+    }
+    hostData() {
+        const animated = this.animated && this.config.getBoolean('animated', true);
+        const inMedia = hostContext('ion-avatar', this.el) || hostContext('ion-thumbnail', this.el);
+        return Object.assign({ class: {
+                'skeleton-text-animated': animated,
+                'in-media': inMedia
+            } }, this.calculateWidth());
+    }
+    static get is() { return "ion-skeleton-text"; }
+    static get encapsulation() { return "shadow"; }
+    static get properties() { return {
+        "animated": {
+            "type": Boolean,
+            "attr": "animated"
+        },
+        "config": {
+            "context": "config"
+        },
+        "el": {
+            "elementRef": true
+        },
+        "width": {
+            "type": String,
+            "attr": "width"
+        }
+    }; }
+    static get style() { return "/**style-placeholder:ion-skeleton-text:**/"; }
+}

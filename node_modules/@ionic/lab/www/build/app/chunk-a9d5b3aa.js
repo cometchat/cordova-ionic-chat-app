@@ -1,0 +1,1 @@
+const n="ios",o="android",i=["ios","android","windows"];function d(n){return"ios"===n?"iOS":"android"===n?"Android":"windows"===n?"Windows":"Unknown"}function s(n){let o=n;return"ios"===n&&(o="apple"),`ion-social-${o}`}function a(n){return"android"===n?"md":n}export{n as a,o as b,d as c,i as d,s as e,a as f};

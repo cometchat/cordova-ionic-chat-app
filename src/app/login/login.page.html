@@ -1,19 +1,23 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>Login</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
-  <div class="ion-padding" text-align="center">
-    <p style="text-align:center;"> Welcome to CometChat Pro</p>
+  <div class="outerDiv">
+    <div class='imageOuter'>
+      <img src="../assets/cometchat_white.png" class="center">
+    </div>
+    <div class="loginContainer">
       <ion-item> 
           <ion-label position="floating">Enter UID</ion-label>
-          <ion-input type="text" [(ngModel)]="userUID"></ion-input>
+          <ion-input type="text" [(ngModel)]="userUID" class="loginInput"></ion-input>
         </ion-item>
         <br>
         <br>
-        <ion-button expand="full" shape="round" (click)='onSubmit()'>Login</ion-button>
+        <ion-button expand="full" shape="round" (click)='onSubmit()' class="loginBtn">Login</ion-button>
+    </div>    
   </div>
 
 </ion-content>

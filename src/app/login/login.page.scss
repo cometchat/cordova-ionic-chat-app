@@ -1,0 +1,36 @@
+img.center {
+    
+}
+
+img{
+    width: 100px;
+    height: 121.94px;
+}
+
+.outerDiv{
+    background: #2636be;
+    height: 100%;
+}
+.imageOuter{
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginContainer{
+    border-radius: 20px 20px 0 0;
+    background: white;
+    height: 60%;
+    padding: 16px;
+}
+
+.loginInput{
+    padding-left: 0px;
+}
+
+.loginBtn{
+    --background: #2636be;
+    --background-focused: #2636be;
+    --background-activated: #2636be;
+}

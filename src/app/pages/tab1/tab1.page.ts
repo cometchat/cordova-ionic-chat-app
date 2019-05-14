@@ -18,6 +18,7 @@ export class Tab1Page implements OnInit {
 
   ngOnInit() {
     this.getUserList();
+    this.addUserEventListner();
   }
 
   getUserList(){
@@ -68,4 +69,32 @@ export class Tab1Page implements OnInit {
       );
   }
 
+  addUserEventListner() {
+    var listenerID = "UserEventsListnerInList";
+  
+    CometChat.addUserListener(
+    listenerID,
+    new CometChat.UserListener({
+      onUserOnline: onlineUser => {
+      /* when someuser/friend comes online, user will be received here */
+        console.log("On User Online:", { onlineUser });
+        for (let i = 0; i < this.userListArray.length; i++) {
+          if(this.userListArray[i].uid == onlineUser.uid){
+            this.userListArray[i].status = "Online";
+          }
+        }
+
+      },
+      onUserOffline: offlineUser => {
+      /* when someuser/friend went offline, user will be received here */
+      console.log("On User Offline:", { offlineUser });
+        for (let i = 0; i < this.userListArray.length; i++) {
+          if(this.userListArray[i].uid == offlineUser.uid){
+            this.userListArray[i].status = "Offline";
+          }
+        }
+      }
+    })
+    );
+  }
 }

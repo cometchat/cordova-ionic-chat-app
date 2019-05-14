@@ -5,7 +5,8 @@
         </ion-buttons>
       <ion-title>
         <div class="Inline"><img src="{{currentGroupData.icon || 'https://pbs.twimg.com/profile_images/857490466572443648/c05JqEgo_400x400.jpg' }}" class="circular"></div>
-        <div class="Inline"><span style="padding:5px;" >{{currentGroupData.name}}</span></div>  
+        <div class="Inline"><span style="padding:5px;" >{{currentGroupData.name}}</span></div>
+        <p style="margin: 0px; font-size: small; padding-bottom: 2px;">{{currentTypingUserIndicator}}</p>  
       </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -22,9 +23,10 @@
 <ion-footer no-border>
     <ion-toolbar>
       <div class="bar bar-footer bar-balanced chat-box-container">
-            <ion-input class="chat-editor-box" placeholder="Type Your Message Here.." type="text" [(ngModel)]="messageText"></ion-input>
+            <ion-input class="chat-editor-box" placeholder="Type Your Message Here.." type="text" [(ngModel)]="messageText" (ionBlur)="checkBlur()"
+            (ionFocus)="checkFocus()" (ionInput)="checkInput()"></ion-input>
             <div class="btnSendChatView">
-          <button item-right clear (click)='sendMessage($event)' class = "btnSendChatView">
+          <button item-right clear (click)='sendMessage()' class = "btnSendChatView">
             <ion-icon name="send" class="btnSendChat"></ion-icon>
           </button>
           </div>

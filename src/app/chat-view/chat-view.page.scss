@@ -83,4 +83,22 @@ ion-avatar {
     background-color:#2636be;
     color: white;
     border-radius: 10px 10px 0px 10px;
+    display: inline-block;
+    margin-right: 13px;
+    }
+
+    .showTicks{
+        display: block;
+    }
+
+    .hideTicks{
+        display: none;
+    }
+
+    .imgSpan{
+        align-self: flex-end;
+        display: inline-block;
+        position: relative;
+    top: -15px;
+    left: 0px;
     }

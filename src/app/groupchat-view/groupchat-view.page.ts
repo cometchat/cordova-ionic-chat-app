@@ -17,6 +17,7 @@ export class GroupchatViewPage implements OnInit {
   currentGroupData : any;
   messagesRequest : any;
   groupMessages:any;
+  currentTypingUserIndicator : any;
   public messageText : string;
   loggedInUserData : any;
 
@@ -61,6 +62,8 @@ export class GroupchatViewPage implements OnInit {
     this.messagesRequest = new CometChat.MessagesRequestBuilder().setLimit(limit).setGUID(this.currentGroupData.guid).build();
     this.loadMessages();
     this.addMessageEventListner();
+    this.addTypingListner();
+    this.currentTypingUserIndicator = "";
     CometChat.getLoggedinUser().then(user=>{
       console.log("user is ",user);
       this.loggedInUserData = user;
@@ -138,10 +141,10 @@ export class GroupchatViewPage implements OnInit {
       CometChat.addMessageListener(listenerID, new CometChat.MessageListener({
       onTextMessageReceived: textMessage => {
       console.log("Text message successfully", textMessage);
-      //if (textMessage.receiverID == this.loggedInUserData.uid){
+      if (textMessage.receiverID != this.loggedInUserData.uid){
         this.groupMessages.push(textMessage);
         this.moveToBottom();
-      //}
+      }
       
         console.log("here uid ",textMessage.sender.uid);
         console.log("logged userID ",this.loggedInUserData.uid);
@@ -159,6 +162,44 @@ export class GroupchatViewPage implements OnInit {
       
     })
     );
+
+  }
+
+  addTypingListner() {
+
+    let listenerId="GroupTypingListner";
+
+    CometChat.addMessageListener(listenerId, new CometChat.MessageListener({
+      onTypingStarted: (typingIndicator) => {
+        console.log("Typing started :", typingIndicator);
+        console.log("Typing uid :",typingIndicator.sender.uid);
+        if (typingIndicator.sender.uid != this.loggedInUserData.uid){
+          console.log("update the indicators");
+
+          var name = typingIndicator.sender.name+" is typing...";
+            this.currentTypingUserIndicator = name;
+
+          // if (this.currentTypingUserIndicator != "") {
+          //   var name = typingIndicator.sender.name+", "+this.currentTypingUserIndicator;
+          //   this.currentTypingUserIndicator = name;
+          // }else{
+          //   var name = typingIndicator.sender.name+" is typing...";
+          //   this.currentTypingUserIndicator = name;
+          // }
+
+          // var name = typingIndicator.sender.name+" is typing...";
+          // this.currentTypingUserIndicator = name;
+        }
+        
+      },
+      onTypingEnded: (typingIndicator) => {
+        console.log("Typing ended :", typingIndicator);
+        console.log("onTypingEnded uid :",typingIndicator.sender.uid);
+        if (typingIndicator.sender.uid != this.loggedInUserData.uid){
+          this.currentTypingUserIndicator = "";
+        }
+      }
+    }));
 
   }
 
@@ -187,6 +228,29 @@ export class GroupchatViewPage implements OnInit {
       );
 
     }
+  }
+
+  checkBlur(){
+    console.log("checkBlur called");
+    let receiverId = this.currentGroupData.guid;
+    let receiverType = CometChat.RECEIVER_TYPE.GROUP;
+
+    let typingNotification = new CometChat.TypingIndicator(receiverId,receiverType);
+    CometChat.endTyping(typingNotification);
+  }
+
+  checkFocus(){
+    console.log("checkFocus called");
+    
+  }
+
+  checkInput(){
+    console.log("checkInput called");
+    let receiverId = this.currentGroupData.guid;
+    let receiverType = CometChat.RECEIVER_TYPE.GROUP;
+
+    let typingNotification = new CometChat.TypingIndicator(receiverId,receiverType);
+    CometChat.startTyping(typingNotification);
   }
 
 }

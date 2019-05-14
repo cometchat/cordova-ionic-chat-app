@@ -1,11 +1,12 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Groups</ion-title>
+  <ion-toolbar color="mainColor">
+    <ion-title style="color: white;">Groups</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-list>
+<ion-content color="mainColor">
+  <div>
+    <ion-list class="groupList">
         <div *ngFor="let group of groupListArray">
             <ion-item (click)="tappedOnItems($event, group)">
                 <ion-avatar slot="start">
@@ -18,6 +19,7 @@
             </ion-item>
           </div>
     </ion-list>
+  </div>  
     <ion-infinite-scroll threshold="100px" (ionInfinite)="loadNextGroups($event)">
         <ion-infinite-scroll-content
           loadingSpinner="dots"

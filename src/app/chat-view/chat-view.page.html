@@ -6,24 +6,31 @@
     <ion-title>
       <div class="Inline"><img src="{{currentData.avatar || 'https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1' }}" class="circular"></div>
       <div class="Inline"><span style="padding:5px;" >{{currentData.name}}</span></div>
-      
+      <p style="margin: 0px; font-size: small; padding-bottom: 2px;">{{currentUserStatus}}</p>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding #content [scrollEvents]="true" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)" (ionScrollEnd)="logScrollEnd()">
-	<ion-list>
+	<ion-list>	
 	<div class="chat" *ngFor="let message of userMessages">
-		<div [class]="message.sender.uid === currentData.uid ? 'message me' : 'message you'">{{message.text}}</div>
-	</div> 
+			<!--{{myFunction(message)}}-->
+		<span [class]="message.sender.uid === currentData.uid ? 'message me' : 'message you'">{{message.text}}
+		<!-- <img src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1" [class]="message.sender.uid === currentData.uid ? 'hideTicks' : 'showTicks'" style="width: 23px; height: 11px; margin-bottom: -5px;"> -->
+		</span>
+		<span class="imgSpan"> 
+		<img src="{{(message.deliveredAt > 0) ? (message.readAt > 0) ? ('../assets/readAt.png') : ('../assets/deliveredAt.png') : (message.readAt) ? ('../assets/readAt.png') : 'https://2.bp.blogspot.com/-XItmlQeH_-4/Vj9iojIcOHI/AAAAAAAA-f8/mU7SLoGV8Lk/s320/Single%2BTick%2BCheck%2BMark%2BPHOTO.jpg'}}" [class]="message.sender.uid === currentData.uid ? 'hideTicks' : 'showTicks'" style="width: 11px; height: 11px; margin-bottom: -5px;">
+		</span>
+	</div>
 	</ion-list>
 </ion-content>
 <ion-footer no-border>
 	<ion-toolbar>
 		<div class="bar bar-footer bar-balanced chat-box-container">
-      		<ion-input class="chat-editor-box" placeholder="Type Your Message Here.." type="text" [(ngModel)]="messageText"></ion-input>
+      		<ion-input class="chat-editor-box" placeholder="Type Your Message Here.." type="text" [(ngModel)]="messageText" (ionBlur)="checkBlur()"
+					(ionFocus)="checkFocus()" (ionInput)="checkInput()"></ion-input>
       		<div class="btnSendChatView">
-				<button item-right clear (click)='sendMessage($event)' class = "btnSendChatView">
+				<button item-right clear (click)='sendMessage()' class = "btnSendChatView">
 				  <ion-icon name="send" class="btnSendChat"></ion-icon>
 				</button>
 			  </div>

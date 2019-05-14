@@ -1,0 +1,21 @@
+export declare type Platforms = keyof typeof PLATFORMS_MAP;
+export declare const getPlatforms: (win: any) => string[];
+export declare const isPlatform: (win: Window, platform: "ios" | "ipad" | "iphone" | "android" | "phablet" | "tablet" | "cordova" | "capacitor" | "electron" | "pwa" | "mobile" | "mobileweb" | "desktop" | "hybrid") => boolean;
+export declare const setupPlatforms: (win: any) => string[];
+export declare const testUserAgent: (win: Window, expr: RegExp) => boolean;
+export declare const PLATFORMS_MAP: {
+    'ipad': (win: Window) => boolean;
+    'iphone': (win: Window) => boolean;
+    'ios': (win: Window) => boolean;
+    'android': (win: Window) => boolean;
+    'phablet': (win: Window) => boolean;
+    'tablet': (win: Window) => boolean;
+    'cordova': (win: any) => boolean;
+    'capacitor': (win: any) => boolean;
+    'electron': (win: Window) => boolean;
+    'pwa': (win: Window) => boolean;
+    'mobile': (win: Window) => boolean;
+    'mobileweb': (win: Window) => boolean;
+    'desktop': (win: Window) => boolean;
+    'hybrid': (win: Window) => boolean;
+};
