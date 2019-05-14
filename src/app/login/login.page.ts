@@ -11,8 +11,8 @@ import { CometChat } from '@cometchat-pro/chat';
 
 export class LoginPage implements OnInit {
   public userUID : string;
-  public appID : string = "338d7fb95a736";
-  public apiKey : string = "7b98476e295b2fb3952dab04408cae570629d8ce";
+  public appID : string = "";
+  public apiKey : string = "";
 
   constructor(public navCtrl: NavController,
     private loadingController : LoadingController, 
