@@ -7,21 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
 
-  constructor() { }
+  constructor( ) { }
 
   ngOnInit() {
   }
 
   tappedOnTap2() {
-
-    console.log('tapped on tap 2')
-
+    console.log('tapped on tap 2');
   }
 
   tappedOnTap1() {
-
-    console.log('tapped on tap 1')
-
+    console.log('tapped on tap 1');
   }
 
 

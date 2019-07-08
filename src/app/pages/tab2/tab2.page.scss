@@ -12,16 +12,22 @@
 }
 
 .groupList{
-    min-height: 350px;
-    border-top-left-radius: 20px;
-    background: #ffffff;
-    border-top-right-radius: 20px;
-    border: 1px solid black;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-  }
+  width: 95%;
+  min-height: -webkit-fill-available;
+  margin-top: 32px;
+  border-top-left-radius: 20px;
+  background: #ffffff;
+  border-top-right-radius: 20px;
+  border: 1px solid black;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.loadButton button:focus{
+  outline: none;
+}

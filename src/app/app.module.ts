@@ -9,14 +9,33 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { PopoverPage } from '../app/pages/popoverpage/popoverpage';
+
+import {IonicStorageModule} from '@ionic/storage';
+
+import { Chooser } from '@ionic-native/chooser/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { ImageViewerComponent } from './component/image-viewer/image-viewer.component';
+
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  declarations: [
+    AppComponent,
+    PopoverPage,
+    ImageViewerComponent
+  ],
+  entryComponents: [
+    PopoverPage,
+    ImageViewerComponent
+  ],
+  imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Chooser,
+    InAppBrowser,
+    ImagePicker
   ],
   bootstrap: [AppComponent]
 })

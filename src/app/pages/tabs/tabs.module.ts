@@ -13,8 +13,8 @@ const routes: Routes = [
     component: TabsPage,
     children : [
       {
-         path: 'tab1', 
-         loadChildren: '../tab1/tab1.module#Tab1PageModule' 
+         path: 'tab1',
+         loadChildren: '../tab1/tab1.module#Tab1PageModule'
       },
       {
           path: 'tab2',
@@ -23,10 +23,12 @@ const routes: Routes = [
     ]
   },
   {
-    path:'',
-    redirectTo:'tabs/tab1',
+    path: '',
+    redirectTo: 'tabs/tab1',
     pathMatch: 'full'
-  }
+  },
+  { path: 'blocked-users', loadChildren: '../../blocked-users/blocked-users.module#BlockedUsersPageModule' },
+  { path: 'redirectToTabs', redirectTo: 'tabs/tab1', pathMatch: 'full'},
 ];
 
 @NgModule({

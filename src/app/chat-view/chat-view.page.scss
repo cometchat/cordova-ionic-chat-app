@@ -40,7 +40,7 @@ ion-avatar {
 }
 
 
-.btnSendChatView{
+.btnSendChatView, .btnAttachMediaView{
     height: 38px;
     width: 38px;
     margin-left: 4px;
@@ -54,37 +54,54 @@ ion-avatar {
     border-radius: 50%;
 }
 
-.btnSendChat{
+.btnSendChat, .btnAttachMedia{
     height: 24px;
     width: 24px;
 }
 
-.chat {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
+    .chat {
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
     }
     
     .message {
-    margin: 0.2em 0;
-    padding: 0.5em;
-    max-width: 70%;
+        margin: 0.2em 0;
+        padding: 0.5em;
+        max-width: 70%;
     }
     
     .me {
-    align-self: flex-start;
-    background-color: #F1F0F0;
-    color: black;
-    border-radius: 10px 10px 10px 0px;
+        align-self: flex-start;
+        background-color: #F1F0F0;
+        color: black;
+        border-radius: 10px 10px 10px 0px;
     }
     
     .you {
-    align-self: flex-end;
-    background-color:#2636be;
-    color: white;
-    border-radius: 10px 10px 0px 10px;
-    display: inline-block;
-    margin-right: 13px;
+        align-self: flex-end;
+        background-color:#2636be;
+        color: white;
+        border-radius: 10px 10px 0px 10px;
+        display: inline-block;
+        margin-right: 13px;
+    }
+
+    .youMedia{
+        align-self: flex-end;
+        color: white;
+        display: inline-block;
+        margin-right: 13px;
+    }
+
+    .meMedia{
+        align-self: flex-start;
+        color: black;
+    }
+    
+    .videoClass{
+        background-color: none;
+        border-radius: none;
     }
 
     .showTicks{
@@ -99,6 +116,6 @@ ion-avatar {
         align-self: flex-end;
         display: inline-block;
         position: relative;
-    top: -15px;
-    left: 0px;
+        top: -15px;
+        left: 0px;
     }

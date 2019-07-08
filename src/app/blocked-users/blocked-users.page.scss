@@ -9,12 +9,10 @@
     --ion-color-contrast-rgb: 255,255,255;
     --ion-color-shade: #2636be;
     --ion-color-tint: #2636be;
-  }
+}
 
-  .chatList{
-    width: 95%;
-    margin-top: 32px;
-    min-height: -webkit-fill-available;
+.blockedUsersList{
+    min-height: 350px;
     border-top-left-radius: 20px;
     background: #ffffff;
     border-top-right-radius: 20px;
@@ -26,8 +24,4 @@
     padding-top: 5px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-  }
-
-  .loadButton button:focus{
-    outline: none;
-  }
+}

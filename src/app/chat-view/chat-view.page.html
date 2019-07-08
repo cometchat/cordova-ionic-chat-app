@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
+      <ion-buttons slot="start" (click)="goHome()">
         <ion-back-button></ion-back-button>
       </ion-buttons>
     <ion-title>
@@ -13,27 +13,47 @@
 
 <ion-content padding #content [scrollEvents]="true" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)" (ionScrollEnd)="logScrollEnd()">
 	<ion-list>	
-	<div class="chat" *ngFor="let message of userMessages">
-			<!--{{myFunction(message)}}-->
-		<span [class]="message.sender.uid === currentData.uid ? 'message me' : 'message you'">{{message.text}}
-		<!-- <img src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1" [class]="message.sender.uid === currentData.uid ? 'hideTicks' : 'showTicks'" style="width: 23px; height: 11px; margin-bottom: -5px;"> -->
-		</span>
-		<span class="imgSpan"> 
-		<img src="{{(message.deliveredAt > 0) ? (message.readAt > 0) ? ('../assets/readAt.png') : ('../assets/deliveredAt.png') : (message.readAt) ? ('../assets/readAt.png') : 'https://2.bp.blogspot.com/-XItmlQeH_-4/Vj9iojIcOHI/AAAAAAAA-f8/mU7SLoGV8Lk/s320/Single%2BTick%2BCheck%2BMark%2BPHOTO.jpg'}}" [class]="message.sender.uid === currentData.uid ? 'hideTicks' : 'showTicks'" style="width: 11px; height: 11px; margin-bottom: -5px;">
-		</span>
+	<div *ngFor="let message of userMessages">
+		<div class="chat" *ngIf="message !== undefined">
+			<span [class]="message.sender.uid === currentData.uid ? 'message me' : 'message you'" *ngIf="message.type == 'text'">
+				{{message.text}}
+			</span>
+	
+			<span [class]="message.sender.uid === currentData.uid ? 'message meMedia' : 'message youMedia'" *ngIf="message.type == 'image'">
+				<img src={{message.data.url}} style="height: 150px; width: 150px;" (click)="viewImage(message.data.url)">
+			</span>
+	
+			<span [class]="message.sender.uid === currentData.uid ? 'message meMedia' : 'message youMedia'" *ngIf="message.type == 'video'">
+				<video width="150px" height="150px" preload="auto" controls>
+					<source src={{message.data.url}}>
+				</video>
+			</span>
+	
+			<span [class]="message.sender.uid === currentData.uid ? 'message me' : 'message you'" *ngIf="message.type == 'file'">
+				{{message.sender.name}} has sent you a file, you can download it<span style="font-weight: bold; font-style: italic;" (click)="openLink(message.data.url)"> here.</span>
+			</span>	
+	
+			<span class="imgSpan">
+				<img src="{{(message.deliveredAt > 0) ? (message.readAt > 0) ? ('../assets/readAt.png') : ('../assets/deliveredAt.png') : (message.readAt) ? ('../assets/readAt.png') : 'https://2.bp.blogspot.com/-XItmlQeH_-4/Vj9iojIcOHI/AAAAAAAA-f8/mU7SLoGV8Lk/s320/Single%2BTick%2BCheck%2BMark%2BPHOTO.jpg'}}" [class]="message.sender.uid === currentData.uid ? 'hideTicks' : 'showTicks'" style="width: 11px; height: 11px; margin-bottom: -5px;">
+			</span>
+		</div>
 	</div>
 	</ion-list>
 </ion-content>
 <ion-footer no-border>
 	<ion-toolbar>
 		<div class="bar bar-footer bar-balanced chat-box-container">
-      		<ion-input class="chat-editor-box" placeholder="Type Your Message Here.." type="text" [(ngModel)]="messageText" (ionBlur)="checkBlur()"
-					(ionFocus)="checkFocus()" (ionInput)="checkInput()"></ion-input>
-      		<div class="btnSendChatView">
-				<button item-right clear (click)='sendMessage()' class = "btnSendChatView">
-				  <ion-icon name="send" class="btnSendChat"></ion-icon>
-				</button>
-			  </div>
+			  <ion-input class="chat-editor-box" placeholder="Type Your Message Here.." type="text" [(ngModel)]="messageText" (ionBlur)="checkBlur()" (ionFocus)="checkFocus()" (ionInput)="checkInput()"></ion-input>
+			  	<div class="btnSendChatView">
+					<button item-right clear (click)='showActionSheet()' class = "btnAttachMediaView">
+					<ion-icon name="attach" class="btnAttachMedia"></ion-icon>
+					</button>
+				</div>
+				<div class="btnSendChatView">
+					<button item-right clear (click)='sendMessage()' class = "btnSendChatView">
+					<ion-icon name="send" class="btnSendChat"></ion-icon>
+					</button>
+				</div>
 		</div>
 	</ion-toolbar>
 </ion-footer>

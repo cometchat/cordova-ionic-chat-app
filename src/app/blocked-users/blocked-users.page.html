@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar color="mainColor">
+        <ion-buttons style="margin-left: 15px;" slot="start" (click)='goBack()'>
+          <ion-icon name="md-arrow-round-back" style="font-size: 30px;"></ion-icon>
+        </ion-buttons>
+      <ion-title style="color: white;">Blocked Users</ion-title>
+    </ion-toolbar>
+</ion-header>
+  
+<ion-content color="mainColor" style="overflow: hidden; height: -webkit-fill-available;">
+  <ion-list style="border-top-left-radius: 20px; border-top-right-radius: 20px; overflow: auto; height: 97%; margin-left: 16px; margin-right: 16px; -webkit-margin-top-collapse: separate; margin-top: 16px;">
+    <div *ngFor="let user of blockedUserListArray">
+      <div *ngIf="user">
+        <ion-row style="height: max-content;">
+          <ion-col col-12 col-md-6 col-lg-4>
+            <ion-item class="user" (press)="presentActionSheet(user)">
+              <ion-row style="width: 100%">
+                <ion-col style="max-width: max-content">
+                  <img src="{{user.avatar || 'https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1' }}" style="width: 42px; height: 42px; border-radius: 50%; ">
+                </ion-col>
+                <ion-col style="width: max-content">
+                  <span>
+                    {{user.name}}
+                  </span>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>

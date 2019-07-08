@@ -1,29 +1,43 @@
 <ion-header>
   <ion-toolbar color="mainColor">
     <ion-title style="color: white;">Groups</ion-title>
+    <ion-button  fill="clear" slot="end" size="small" icon-only (click)="openMenu($event)">
+      <ion-icon style="color: #fff; width: 30px; height: 30px;" name="menu"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="mainColor">
-  <div>
-    <ion-list class="groupList">
-        <div *ngFor="let group of groupListArray">
-            <ion-item (click)="tappedOnItems($event, group)">
-                <ion-avatar slot="start">
-                  <img src="{{group.icon || 'https://pbs.twimg.com/profile_images/857490466572443648/c05JqEgo_400x400.jpg' }}">
-                </ion-avatar>
-                <ion-label>
-                    <h2>{{group.name}}</h2>
-                    <ion-note><h3>{{group.description}}</h3></ion-note>
-                </ion-label> 
-            </ion-item>
-          </div>
+<ion-content color="mainColor" style="overflow: hidden;height: -webkit-fill-available;">
+    <ion-list style="border-top-left-radius: 20px; border-top-right-radius: 20px; overflow: auto; height: 97%; margin-left: 16px; margin-right: 16px; -webkit-margin-top-collapse: separate; margin-top: 16px;">
+      <div *ngFor="let group of groupListArray">
+        <div *ngIf="group">
+          <ion-row style="height: max-content;">
+            <ion-col col-12 col-md-6 col-lg-4>
+              <ion-item class="group" (click)="tappedOnItems($event, group)">
+                <ion-row style="width: 100%">
+                  <ion-col style="max-width: max-content">
+                    <img src="{{group.icon || 'https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1' }}" style="width: 42px; height: 42px; border-radius: 50%; ">
+                  </ion-col>
+                  <ion-col style="width: max-content">
+                    <span>
+                      {{group.name}}
+                    </span>
+                  </ion-col>
+                  <ion-col style="max-width: 24px; padding: 0px;">
+                    <span *ngIf="group.unreadCount > 0" style="border-radius: 50%;width: 24px;height: 24px;padding-top: 6px;background-color: red;color: #fff;text-align: center;font-size: 12px; display: flex; justify-content: center; margin-top: 6px; position:absolute; right: 0px;">
+                      {{group.unreadCount}}
+                    </span>
+                  </ion-col>
+                </ion-row>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+      <ion-item lines="none" (click)="loadNextGroups($event)" class="loadButton">
+        <button style="margin: auto; background: white; border: 1px solid gray; padding: 5px;">
+          Load More Groups
+        </button>
+      </ion-item>
     </ion-list>
-  </div>  
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadNextGroups($event)">
-        <ion-infinite-scroll-content
-          loadingSpinner="dots"
-          loadingText="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
-</ion-content>
+  </ion-content>

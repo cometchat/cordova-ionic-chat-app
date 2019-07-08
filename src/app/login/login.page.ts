@@ -10,20 +10,20 @@ import { CometChat } from '@cometchat-pro/chat';
 })
 
 export class LoginPage implements OnInit {
-  public userUID : string;
-  public appID : string = "";
-  public apiKey : string = "";
+  public userUID: string;
+  // tslint:disable-next-line:no-inferrable-types
+  public appID: string = '100254e8db3d1b';
+  // tslint:disable-next-line:no-inferrable-types
+  public apiKey: string = 'ebae51bfa38bb5f2f21266bd2e9f58b64c87ab9a';
 
   constructor(public navCtrl: NavController,
-    private loadingController : LoadingController, 
-    private alertController : AlertController,
-    private router : Router) {  }
+    private loadingController: LoadingController,
+    private alertController: AlertController,
+    private router: Router) {  }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
-  async presentAlert(alertmessage : string) {
+  async presentAlert(alertmessage: string) {
     const alert = await this.alertController.create({
       header: 'Error',
       message: alertmessage,
@@ -43,11 +43,11 @@ export class LoginPage implements OnInit {
     CometChat.init(this.appID).then(
 
       () => {
-        console.log("Initialization completed successfully");
-        
+        console.log('Initialization completed successfully');
+
         CometChat.login(this.userUID, this.apiKey).then(
           user => {
-            console.log("Login Successful:", { user });
+            console.log('Login Successful:', { user });
             loading.dismiss();
             this.router.navigate(['tabs']);
             // User loged in successfully.
@@ -61,7 +61,7 @@ export class LoginPage implements OnInit {
         // You can now call login function.
       },
       error => {
-        console.log("Initialization failed with error:", error);
+        console.log('Initialization failed with error:', error);
         this.presentAlert(error.message);
         // Check the reason for error and take apppropriate action.
       }
