@@ -12,11 +12,11 @@ import { CometChat } from '@cometchat-pro/chat';
 export class LoginPage implements OnInit {
   public userUID: string;
   // tslint:disable-next-line:no-inferrable-types
-  public appID: string = '9067fd8174300f';
+  public appID: string = 'XXXXXXXXXXXXXX';
   // tslint:disable-next-line:no-inferrable-types
-  public apiKey: string = 'dfab8da8785428007c0be20a2c180906c3dc0ef3';
+  public apiKey: string = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX';
 
-  public appRegion: string = 'eu';
+  public appRegion: string = 'XX';
 
   constructor(public navCtrl: NavController,
     private loadingController: LoadingController,
