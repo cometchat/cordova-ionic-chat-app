@@ -273,7 +273,7 @@ loadPreviousMessages() {
       const messageType = CometChat.MESSAGE_TYPE.TEXT;
       const receiverType = CometChat.RECEIVER_TYPE.USER;
 
-      const textMessage = new CometChat.TextMessage(this.currentData.uid, this.messageText, messageType, receiverType);
+      const textMessage = new CometChat.TextMessage(this.currentData.uid, this.messageText, receiverType);
 
       CometChat.sendMessage(textMessage).then(
         message => {
@@ -343,7 +343,7 @@ loadPreviousMessages() {
     for (let i = 0; i < this.userMessages.length; i++) {
       if (this.userMessages[i].id === message.id && this.userMessages[i].sender.uid !== this.loggedInUserData.uid) {
         console.log('here the sendReadReceipts item is', this.userMessages[i]);
-        CometChat.markMessageAsRead(this.userMessages[i]);
+        CometChat.markAsRead(this.userMessages[i].id, this.userMessages[i].sender.uid, this.userMessages[i].receiverType);
       }
     }
   }
@@ -352,7 +352,7 @@ loadPreviousMessages() {
     for (let i = 0; i < this.userMessages.length; i++) {
 
       if (this.userMessages[i].receiver !== this.currentData.uid) {
-        CometChat.markMessageAsRead(this.userMessages[i]);
+        CometChat.markAsRead(this.userMessages[i].id, this.userMessages[i].sender.uid, this.userMessages[i].receiverType);
       }
 
     }

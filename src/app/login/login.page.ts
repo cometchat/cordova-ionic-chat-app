@@ -12,9 +12,11 @@ import { CometChat } from '@cometchat-pro/chat';
 export class LoginPage implements OnInit {
   public userUID: string;
   // tslint:disable-next-line:no-inferrable-types
-  public appID: string = '100254e8db3d1b';
+  public appID: string = '9067fd8174300f';
   // tslint:disable-next-line:no-inferrable-types
-  public apiKey: string = 'ebae51bfa38bb5f2f21266bd2e9f58b64c87ab9a';
+  public apiKey: string = 'dfab8da8785428007c0be20a2c180906c3dc0ef3';
+
+  public appRegion: string = 'eu';
 
   constructor(public navCtrl: NavController,
     private loadingController: LoadingController,
@@ -40,7 +42,10 @@ export class LoginPage implements OnInit {
       translucent: true
     });
     loading.present();
-    CometChat.init(this.appID).then(
+    CometChat.init(this.appID, new CometChat.AppSettingsBuilder()
+    .subscribePresenceForAllUsers()
+    .setRegion(this.appRegion)
+    .build()).then(
 
       () => {
         console.log('Initialization completed successfully');

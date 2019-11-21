@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CometChat, User } from '@cometchat-pro/chat';
+import { CometChat } from '@cometchat-pro/chat';
 import { NavigationExtras, Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
@@ -12,7 +12,7 @@ import { PopoverPage } from '../popoverpage/popoverpage';
 })
 export class Tab1Page implements OnInit {
   public userListArray: any = [];
-  public userData: User;
+  public userData: [];
   public refresh: any = 0;
   public unblockUserUID:  any = '';
   private limit: any = 30;

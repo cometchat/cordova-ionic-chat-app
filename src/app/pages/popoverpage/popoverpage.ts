@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController, NavController } from '@ionic/angular';
-import { CometChat, User, Message} from '@cometchat-pro/chat';
+import { CometChat } from '@cometchat-pro/chat';
 
 @Component({
     template: `

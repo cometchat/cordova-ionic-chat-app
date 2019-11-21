@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { CometChat, User, Group } from '@cometchat-pro/chat';
+import { CometChat } from '@cometchat-pro/chat';
 import { NavigationExtras, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { PopoverPage } from '../popoverpage/popoverpage';
@@ -13,7 +13,7 @@ import { PopoverPage } from '../popoverpage/popoverpage';
 export class Tab2Page implements OnInit {
 
   public groupListArray: any = [];
-  public groupData: Group;
+  public groupData: [];
   public refresh: any = 0;
   private limit: any = 30;
   private groupsRequest: any;

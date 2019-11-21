@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { CometChat, User, Message } from '@cometchat-pro/chat';
+import { CometChat } from '@cometchat-pro/chat';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import {Renderer2} from '@angular/core';
 
@@ -211,13 +211,13 @@ export class GroupchatViewPage implements OnInit {
       const messageType = CometChat.MESSAGE_TYPE.TEXT;
       const receiverType = CometChat.RECEIVER_TYPE.GROUP;
 
-      const textMessage = new CometChat.TextMessage(this.currentGroupData.guid, this.messageText, messageType, receiverType);
+      const textMessage = new CometChat.TextMessage(this.currentGroupData.guid, this.messageText, receiverType);
 
       CometChat.sendMessage(textMessage).then(
         message => {
         console.log('Message sent successfully:', message);
         // Text Message Sent Successfully
-        this.groupMessages.push(message);
+        // this.groupMessages.push(message);
         this.messageText = '';
         // this.content.scrollToBottom(1500);
         this.moveToBottom();
