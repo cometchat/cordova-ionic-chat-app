@@ -72,7 +72,11 @@ CometChat ionic Demo app (built using **CometChat Pro**) is a fully functional m
 
   # Running the sample app 
 
-  Once you have changed the app key values you can run the project with the below command : 
+  Once you have changed the app key values you can install the dependencies and run the project: 
+    
+  ```
+  npm install
+  ```
 
   ```
    $ ionic serve -l
