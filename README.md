@@ -18,27 +18,61 @@ CometChat ionic Demo app (built using **CometChat Pro**) is a fully functional m
 
 1. [Installation](#Installation)
 
-2. [Running the sample app](#Running-the-sample-app)
+2. [Config App](#Config-App)
 
-3. [Contributing](#Contributing)
+3. [Running the sample app](#Running-the-sample-app)
+
+4. [Contributing](#Contributing)
 
 # Installation 
 ### Note : This project is under progress.
 
-  We have added the CometChat Pro SDK in our ionic project with the below command:
-  
-  ```
-   $ npm install @cometchat-pro/chat@1.3.0 --save
-   ```
   For more info you can go through our documentation [CometChat-Pro Documentation](https://prodocs.cometchat.com/docs/js-quick-start)
   
-  Simply clone the project from the repository and make changes in the variables appID and apiKey present in **login.page.ts** file and change them to your apiKey and appID.
+# Config-App
    
-  You can obtain your  *APP_ID* and *API_KEY* from [CometChat-Pro Dashboard](https://app.cometchat.com/)
-   
-# Running the sample app
 
-  Once you have changed the appID and apiKey variable values to your *APP_ID* and *API_KEY* you can run the project with the below command : 
+  <h2> v2.0+ </h2>
+  <h4>
+    Git clone and checkout v2 branch.
+  </h4>
+  <h4>Get your Application Keys</h4>
+
+  <a href="https://app.cometchat.io/" target="_blank">Signup for CometChat</a> and then:
+
+  1. Create a new app - select version as v2 and region as Europe or USA.
+
+  2. Head over to the API Keys section and click on the Create API Key button
+
+  3. Enter a name and select the scope as Auth Only
+
+  4. Now note the API Key and App ID
+
+  5. Replace  `appID`, &nbsp; `apiKey` and &nbsp; `appRegion` in **src/app/login/login.page.ts** with your APP ID, &nbsp; API KEY &nbsp;and&nbsp; APP Region respectively.<br/>
+
+  <h2> v1.0+ </h2>
+
+  <h4>
+    Git clone and checkout v1 branch.
+  </h4>
+
+  <h4>Get your Application Keys</h4>
+
+  <a href="https://app.cometchat.io/" target="_blank">Signup for CometChat</a> and then:
+
+  1. Create a new app - select version as v1
+
+  2. Head over to the API Keys section and click on the Create API Key button<br/>
+
+  3. Enter a name and select the scope as Auth Only<br/>
+
+  4. Now note the API Key and App ID<br/>
+
+  5. Replace  `appID`, &nbsp; `apiKey` in **src/app/login/login.page.ts** with your APP ID, &nbsp;and&nbsp; API KEY respectively.<br/>
+
+  # Running the sample app 
+
+  Once you have changed the app key values you can run the project with the below command : 
 
   ```
    $ ionic serve -l
