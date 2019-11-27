@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CometChat } from '@cometchat-pro/chat';
+import { CometChat } from '@cometchat-pro/cordova-ionic-chat';
 import { NavigationExtras, Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';

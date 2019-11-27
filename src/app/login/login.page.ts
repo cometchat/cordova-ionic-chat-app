@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { CometChat } from '@cometchat-pro/chat';
+import { CometChat } from '@cometchat-pro/cordova-ionic-chat';
 
 @Component({
   selector: 'app-login',

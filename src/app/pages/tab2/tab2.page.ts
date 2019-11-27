@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { CometChat } from '@cometchat-pro/chat';
+import { CometChat } from '@cometchat-pro/cordova-ionic-chat';
 import { NavigationExtras, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { PopoverPage } from '../popoverpage/popoverpage';

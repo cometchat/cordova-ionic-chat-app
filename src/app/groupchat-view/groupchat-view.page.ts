@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { CometChat } from '@cometchat-pro/chat';
+import { CometChat } from '@cometchat-pro/cordova-ionic-chat';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import {Renderer2} from '@angular/core';
 

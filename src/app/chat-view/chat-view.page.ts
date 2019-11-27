@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { CometChat } from '@cometchat-pro/chat';
+import { CometChat } from '@cometchat-pro/cordova-ionic-chat';
 import { Chooser } from '@ionic-native/chooser/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
