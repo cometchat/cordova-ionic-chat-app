@@ -16,7 +16,7 @@ CometChat ionic Demo app (built using **CometChat Pro**) is a fully functional m
 
 ## Table of Contents
 
-1. [Installation](#Installation)
+1. [Config Local Enviroment](#Config-Local-Enviroment)
 
 2. [Config App](#Config-App)
 
@@ -24,14 +24,20 @@ CometChat ionic Demo app (built using **CometChat Pro**) is a fully functional m
 
 4. [Contributing](#Contributing)
 
-# Installation 
-### Note : This project is under progress.
+# Config-Local-Enviroment 
+1. Before proceeding, make sure the latest version of Node.js and npm are installed. 
 
-  For more info you can go through our documentation [CometChat-Pro Documentation](https://prodocs.cometchat.com/docs/js-quick-start)
-  
+2. Install the Ionic CLI
+
+```bash
+
+npm install -g ionic
+
+```
+For further and detailed steps, please visit the <a href="https://ionicframework.com/docs/installation/cli" target="_blank">ionic documentation</a>   
+
 # Config-App
    
-
   <h2> v2.0+ </h2>
   <h4>
     Git clone and checkout v2 branch.
@@ -41,6 +47,9 @@ CometChat ionic Demo app (built using **CometChat Pro**) is a fully functional m
   <a href="https://app.cometchat.io/" target="_blank">Signup for CometChat</a> and then:
 
   1. Create a new app - select version as v2 and region as Europe or USA.
+  <p style="clear:both; display:block;">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/cometchat-pro-samples/ionic-chat-app/blob/master/readme screenshots/create-v2-app.gif"><img align="center" src="readme screenshots/create-v2-app.gif" style="max-width:100%;"></a>
+  </p>
 
   2. Head over to the API Keys section and click on the Create API Key button
 
@@ -49,6 +58,10 @@ CometChat ionic Demo app (built using **CometChat Pro**) is a fully functional m
   4. Now note the API Key and App ID
 
   5. Replace  `appID`, &nbsp; `apiKey` and &nbsp; `appRegion` in **src/app/login/login.page.ts** with your APP ID, &nbsp; API KEY &nbsp;and&nbsp; APP Region respectively.<br/>
+
+  <p style="clear:both; display:block;">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/cometchat-pro-samples/ionic-chat-app/blob/master/readme screenshots/keys.png"><img align="center" src="readme screenshots/keys.png" style="max-width:100%;"></a>
+  </p>
 
   <h2> v1.0+ </h2>
 
@@ -61,6 +74,10 @@ CometChat ionic Demo app (built using **CometChat Pro**) is a fully functional m
   <a href="https://app.cometchat.io/" target="_blank">Signup for CometChat</a> and then:
 
   1. Create a new app - select version as v1
+  
+  <p style="clear:both; display:block;">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/cometchat-pro-samples/ionic-chat-app/blob/master/readme screenshots/create-v1-app.gif"><img align="center" src="readme screenshots/create-v1-app.gif" style="max-width:100%;"></a>
+  </p>
 
   2. Head over to the API Keys section and click on the Create API Key button<br/>
 
@@ -70,6 +87,10 @@ CometChat ionic Demo app (built using **CometChat Pro**) is a fully functional m
 
   5. Replace  `appID`, &nbsp; `apiKey` in **src/app/login/login.page.ts** with your APP ID, &nbsp;and&nbsp; API KEY respectively.<br/>
 
+  <p style="clear:both; display:block;">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/cometchat-pro-samples/ionic-chat-app/blob/master/readme screenshots/keys.png"><img align="center" src="readme screenshots/keys.png" style="max-width:100%;"></a>
+  </p>
+
   # Running the sample app 
 
   Once you have changed the app key values you can install the dependencies and run the project: 
@@ -77,7 +98,6 @@ CometChat ionic Demo app (built using **CometChat Pro**) is a fully functional m
   ```
   npm install
   ```
-
   ```
    $ ionic serve -l
    ```
