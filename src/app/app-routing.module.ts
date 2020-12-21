@@ -6,7 +6,8 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'tabs', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
   { path: 'chat-view', loadChildren: './chat-view/chat-view.module#ChatViewPageModule' },
-  { path: 'groupchat-view', loadChildren: './groupchat-view/groupchat-view.module#GroupchatViewPageModule' }
+  { path: 'groupchat-view', loadChildren: './groupchat-view/groupchat-view.module#GroupchatViewPageModule' },
+  { path: 'calling-screen', loadChildren: './calling-screen/calling-screen.module#CallingScreenPageModule' }
 ];
 
 @NgModule({

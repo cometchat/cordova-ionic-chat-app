@@ -1,0 +1,69 @@
+<ion-header></ion-header>
+
+<ion-content class="ion-padding" #content>
+  
+  <div class="callScreen">
+
+    <div style="text-align: center;">
+      
+      <span *ngIf="avatar === 'user'">
+
+        <ion-icon name="person" style="border-radius: 50px; height: 136px; width: 136px;"></ion-icon>
+
+      </span>
+
+      <span *ngIf="avatar === 'group'">
+
+        <ion-icon name="people" style="border-radius: 50px; height: 136px; width: 136px;"></ion-icon>
+
+      </span>
+
+      <span *ngIf="avatar != 'user' && avatar != 'group'">
+
+        <img src="{{avatar}}" style="border-radius: 50px; height: 136px; width: 136px;">
+
+      </span>
+
+    </div>
+
+    <div style="margin-top: 12%; font-size: 42px; text-align: center;"> 
+      <span>{{name}}</span>
+    </div>
+
+    <div style="margin-top: 40%; text-align: center;">
+
+      <div class="btnAcceptCallView" style="float: left; margin-left: 18%; margin-right: 8%;" *ngIf="isCallOutGoing === 0">
+
+        <button (click)='acceptCall()' class = "btnAcceptCall" style="height: 72px; width: 72px; border-radius: 36px; background: green;">
+
+          <ion-icon name="call" class="btnAcceptCallIcon" style="height: 48px; width: 48px; color: white;"></ion-icon>
+
+        </button>
+
+      </div>
+      
+      <div class="btnRejectCallView" *ngIf="isCallOutGoing === 0">
+
+        <button (click)="rejectCall('rejected')" class = "btnRejectCall" style="height: 72px; width: 72px; border-radius: 36px; background: red">
+
+          <ion-icon name="close" class="btnRejectCallIcon" style="height: 48px; width: 48px; color: white;"></ion-icon>
+
+        </button>
+
+      </div>
+
+      <div class="btnRejectCallView" *ngIf="isCallOutGoing === 1">
+
+        <button (click)="rejectCall('cancelled')" class = "btnRejectCall" style="height: 72px; width: 72px; border-radius: 36px; background: red;">
+
+          <ion-icon name="close" class="btnRejectCallIcon" style="height: 48px; width: 48px; color: white;"></ion-icon>
+
+        </button>
+
+      </div>
+      
+    </div>
+    
+  </div>
+    
+</ion-content>

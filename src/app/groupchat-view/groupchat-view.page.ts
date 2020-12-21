@@ -1,255 +1,366 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
-import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { CometChat } from '@cometchat-pro/cordova-ionic-chat';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
-import {Renderer2} from '@angular/core';
+import { Renderer2 } from '@angular/core';
+import { Chooser } from '@ionic-native/chooser/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-groupchat-view',
-  templateUrl: './groupchat-view.page.html',
-  styleUrls: ['./groupchat-view.page.scss'],
-  providers: [Keyboard],
+    selector: 'app-groupchat-view',
+    templateUrl: './groupchat-view.page.html',
+    styleUrls: ['./groupchat-view.page.scss'],
+    providers: [Keyboard],
 })
 
 export class GroupchatViewPage implements OnInit {
+    currentGroupData: any;
+    messagesRequest: any;
+    groupMessages: any;
+    groupMembers: any;
+    currentTypingUserIndicator: any;
+    public messageText: string;
+    currentUserStatus: any;
+    public messageMedia: any;
+    loggedInUserData: any;
+    messageStatus: any;
+    listenerId = 'OneOnOneMessageListners';
+    showImage = 0;
+    imageUrl = '';
 
-  currentGroupData: any;
-  messagesRequest: any;
-  groupMessages: any;
-  currentTypingUserIndicator: any;
-  public messageText: string;
-  loggedInUserData: any;
+    @ViewChild('content') content: any;
 
-  @ViewChild('content') content: any;
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private keyboard: Keyboard,
+        private renderer2: Renderer2,
+        private chooser: Chooser,
+        private iab: InAppBrowser,
+        public actionSheetController: ActionSheetController,
+        private imagePicker: ImagePicker,
+        public modalController: ModalController
+    ) {
 
-  constructor(private router: Router, private route: ActivatedRoute, private keyboard: Keyboard, private renderer2: Renderer2) {
+        const html = document.getElementsByTagName('html').item(0);
 
-    const html = document.getElementsByTagName('html').item(0);
-    this.keyboard.onKeyboardHide().subscribe(() => {
-      // this.renderer2.setStyle(html, 'height','101vh');
-      this.moveToBottom();
-    });
+        this.keyboard.onKeyboardHide().subscribe(() => {
+            this.moveToBottom();
+        });
 
-    this.keyboard.onKeyboardShow().subscribe(() => {
-      // this.renderer2.setStyle(html, 'height','auto');
-      this.moveToBottom();
-    });
+        this.keyboard.onKeyboardShow().subscribe(() => {
+            this.moveToBottom();
+        });
 
-    this.route.queryParams.subscribe(params => {
-
-      console.log('params: ', params);
-
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.currentGroupData = this.router.getCurrentNavigation().extras.state.group;
-      }
-
-    });
-  }
-
-  ionViewWillEnter(): void {
-    setTimeout(() => {
-      console.log('scrolled caled');
-      this.content.scrollToBottom(300);
-    }, 2000);
-  }
-
-  ngOnInit() {
-    const  limit = 30;
-    console.log('data of currentGroupData is ', this.currentGroupData);
-    const guid: string = this.currentGroupData['guid'];
-    console.log('guid ', guid);
-    this.messagesRequest = new CometChat.MessagesRequestBuilder().setLimit(limit).setGUID(this.currentGroupData.guid).build();
-    this.loadMessages();
-    this.addMessageEventListner();
-    this.addTypingListner();
-    this.currentTypingUserIndicator = '';
-    CometChat.getLoggedinUser().then(user => {
-      console.log('user is ', user);
-      this.loggedInUserData = user;
-    }, error => {
-      console.log('error getting details:', {error});
-    });
-  }
-
-  loadMessages() {
-
-    this.messagesRequest.fetchPrevious().then(
-      messages => {
-        console.log('Message list fetched:', messages);
-        // Handle the list of messages
-        this.groupMessages = messages;
-        // this.userMessages.prepend(messages);
-        console.log('groupMessages are ', this.groupMessages);
-        // this.content.scrollToBottom(1500);
-        this.moveToBottom();
-      },
-      error => {
-        console.log('Message fetching failed with error:', error);
-      }
-    );
-
-  }
-
-  loadPreviousMessages() {
-    this.messagesRequest.fetchPrevious().then(
-      messages => {
-        console.log('Message list fetched:', messages);
-        // Handle the list of messages
-        const newMessages = messages;
-        // this.userMessages = messages;
-        // this.userMessages.prepend(messages);
-
-        if (newMessages !== '') {
-          this.groupMessages = newMessages.concat(this.groupMessages);
-        }
-
-        console.log('UserMessages are ', this.groupMessages);
-        // this.content.scrollToBottom(1500);
-      },
-      error => {
-        console.log('Message fetching failed with error:', error);
-      }
-    );
-  }
-
-  moveToBottom() {
-    console.log('here moving to bottom');
-    this.content.scrollToBottom(2000);
-  }
-
-  logScrollStart() {
-    console.log('logScrollStart : When Scroll Starts');
-  }
-
-  logScrolling($event) {
-    console.log('logScrolling : When Scrolling ', $event.detail.scrollTop);
-    if ($event.detail.scrollTop === 0) {
-      console.log('scroll reached to top');
-      this.loadPreviousMessages();
+        this.route.queryParams.subscribe(
+            params => {
+                if (this.router.getCurrentNavigation().extras.state) {
+                    this.currentGroupData = this.router.getCurrentNavigation().extras.state.group;
+                }
+            }
+        );
     }
-  }
 
-  logScrollEnd() {
-    console.log('logScrollEnd : When Scroll Ends');
-  }
+    ionViewWillEnter(): void {
+        setTimeout(() => {
+            this.content.scrollToBottom(300);
+        }, 2000);
+    }
 
-  addMessageEventListner() {
+    ngOnInit() {
+        const limit = 30;
+        const guid: string = this.currentGroupData['guid'];
+        this.messagesRequest = new CometChat.MessagesRequestBuilder().setLimit(limit).setGUID(guid).build();
+        this.loadMessages();
+        this.addMessageEventListner();
+        this.addTypingListner();
+        this.getGroupMembers();
+        this.currentTypingUserIndicator = '';
+        CometChat.getLoggedinUser().then(
+            user => {
+                this.loggedInUserData = user;
+            }, error => {
+                console.log('error getting details:', { error });
+            }
+        );
+        CometChat.getGroup(guid).then(
+            group => {
+                console.log('group member count', group.getMembersCount());
+                var guid = group.getGuid();
+                let groupNew = new CometChat.Group('abc', 'abc', 'public');
+                groupNew.setGuid(guid);
+            }
+        )
+    }
 
-    const listenerID = 'GroupMessage';
+    getGroupMembers(){
+        var GUID = this.currentGroupData['guid'];
+        var limit = 30;
+        var groupMembersRequest = new CometChat.GroupMembersRequestBuilder(GUID).setLimit(limit).build();
+        groupMembersRequest.fetchNext().then(userList => {
+            console.log("1", userList);
+            this.groupMembers.push(userList);
+        });
+    }
 
-      CometChat.addMessageListener(listenerID, new CometChat.MessageListener({
-      onTextMessageReceived: textMessage => {
-      console.log('Text message successfully', textMessage);
-      if (textMessage.receiverID !== this.loggedInUserData.uid) {
-        this.groupMessages.push(textMessage);
-        this.moveToBottom();
-      }
+    initiateCall(type){
+        let call = new CometChat.Call(this.currentGroupData.guid, type, 'group');
+        CometChat.initiateCall(call).then(
+            Call => {
+                const navigationExtras: NavigationExtras = {
+                    state: {
+                        call: Call,
+                        enableDefaultLayout: 1,
+                        isOutgoingCall: 1,
+                        entity: Call.getCallReceiver(),
+                        entityType: 'group'
+                    }
+                };
+                this.router.navigate(['calling-screen'], navigationExtras);
+            }
+        );
+    }
 
-        console.log('here uid ', textMessage.sender.uid);
-        console.log('logged userID ', this.loggedInUserData.uid);
+    async showActionSheet() {
+        const actionSheet = await this.actionSheetController.create({
+            header: 'Actions',
+            buttons: [{
+                text: 'Image',
+                handler: () => {
+                    this.ImagePicker();
+                }
+            },
+            {
+                text: 'Document',
+                handler: () => {
+                    this.DocumentPicker();
+                }
+            },
+            {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: () => {
+                    console.log('Cancel clicked');
+                }
+            }]
+        });
+        await actionSheet.present();
+    }
 
-      // Handle text message
-      },
-      onMediaMessageReceived: mediaMessage => {
-      console.log('Media message received successfully',  mediaMessage);
-      // Handle media message
-      },
-      onCutomMessageReceived: customMessage => {
-      console.log('Media message received successfully',  customMessage);
-      // Handle media message
-      }
+    DocumentPicker() {
+        this.chooser.getFile('all')
+            .then(response => {
 
-    })
-    );
+                const blob_nw = this.dataURItoBlob(response.dataURI);
 
-  }
+                const file = {
+                    file: blob_nw,
+                    type: response.mediaType,
+                    name: response.name
+                };
 
-  addTypingListner() {
+                this.messageMedia = file;
+                this.sendMediaMessage();
+            })
+            .catch(e => console.log(e));
+    }
 
-    const listenerId = 'GroupTypingListner';
+    ImagePicker() {
+        const options = {
+            outputType: 1
+        };
+        this.imagePicker.getPictures(options)
+            .then((results) => {
+                results[0] = 'data:image/jpeg;base64,' + results[0];
+                const blob_nw = this.dataURItoBlob(results[0]);
+                const date = new Date();
+                const file = {
+                    file: blob_nw,
+                    type: 'image/jpeg',
+                    name: 'temp_img' + date.getTime()
+                };
 
-    CometChat.addMessageListener(listenerId, new CometChat.MessageListener({
-      onTypingStarted: (typingIndicator) => {
-        console.log('Typing started :', typingIndicator);
-        console.log('Typing uid :', typingIndicator.sender.uid);
-        if (typingIndicator.sender.uid !== this.loggedInUserData.uid) {
-          console.log('update the indicators');
+                this.messageMedia = file;
+                this.sendMediaMessage();
+            }, (err) => {
+                console.log(err);
+            });
+    }
 
-          const name = typingIndicator.sender.name + ' is typing...';
-          this.currentTypingUserIndicator = name;
-
-          // if (this.currentTypingUserIndicator != "") {
-          //   var name = typingIndicator.sender.name+", "+this.currentTypingUserIndicator;
-          //   this.currentTypingUserIndicator = name;
-          // }else{
-          //   var name = typingIndicator.sender.name+" is typing...";
-          //   this.currentTypingUserIndicator = name;
-          // }
-
-          // var name = typingIndicator.sender.name+" is typing...";
-          // this.currentTypingUserIndicator = name;
+    dataURItoBlob(dataURI) {
+        const byteString = atob(dataURI.split(',')[1]);
+        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
         }
+        const bb = new Blob([ab], { type: mimeString });
+        return bb;
+    }
 
-      },
-      onTypingEnded: (typingIndicator) => {
-        console.log('Typing ended :', typingIndicator);
-        console.log('onTypingEnded uid :', typingIndicator.sender.uid);
-        if (typingIndicator.sender.uid !== this.loggedInUserData.uid) {
-          this.currentTypingUserIndicator = '';
+    sendMediaMessage() {
+        let messageType = CometChat.MESSAGE_TYPE.IMAGE;
+        if (this.messageMedia.type.split('/')[0] === 'image') {
+            messageType = CometChat.MESSAGE_TYPE.IMAGE;
+        } else if (this.messageMedia.type.split('/')[0] === 'video') {
+            messageType = CometChat.MESSAGE_TYPE.VIDEO;
+        } else {
+            messageType = CometChat.MESSAGE_TYPE.FILE;
         }
-      }
-    }));
+        const receiverType = CometChat.RECEIVER_TYPE.GROUP;
+        const mediaMessage = new CometChat.MediaMessage(this.currentGroupData.guid, this.messageMedia.file, messageType, receiverType);
+        CometChat.sendMediaMessage(mediaMessage).then(
+            message => {
+                this.groupMessages.push(message);
+                this.messageMedia = {};
+                this.moveToBottom();
+            },
+            error => {
+                console.log('Media message sending failed with error', error);
+            }
+        );
+    }
 
-  }
+    loadMessages() {
+        this.messagesRequest.fetchPrevious().then(
+            messages => {
+                this.groupMessages = messages;
+                this.moveToBottom();
+            },
+            error => {
+                console.log('Message fetching failed with error:', error);
+            }
+        );
+    }
 
-  sendMessage() {
+    loadPreviousMessages() {
+        this.messagesRequest.fetchPrevious().then(
+            messages => {
+                const newMessages = messages;
+                if (newMessages !== '') {
+                    this.groupMessages = newMessages.concat(this.groupMessages);
+                }
+            },
+            error => {
+                console.log('Message fetching failed with error:', error);
+            }
+        );
+    }
 
-    console.log('tapped on send Message ', this.messageText );
-    if (this.messageText !== '') {
+    moveToBottom() {
+        this.content.scrollToBottom(2000);
+    }
 
-      const messageType = CometChat.MESSAGE_TYPE.TEXT;
-      const receiverType = CometChat.RECEIVER_TYPE.GROUP;
-
-      const textMessage = new CometChat.TextMessage(this.currentGroupData.guid, this.messageText, receiverType);
-
-      CometChat.sendMessage(textMessage).then(
-        message => {
-        console.log('Message sent successfully:', message);
-        // Text Message Sent Successfully
-        // this.groupMessages.push(message);
-        this.messageText = '';
-        // this.content.scrollToBottom(1500);
-        this.moveToBottom();
-        },
-      error => {
-        console.log('Message sending failed with error:', error);
+    logScrolling($event) {
+        if ($event.detail.scrollTop === 0) {
+            this.loadPreviousMessages();
         }
-      );
+    }
+
+    addMessageEventListner() {
+        const listenerID = 'GroupMessage';
+        CometChat.addMessageListener(
+            listenerID,
+            new CometChat.MessageListener({
+                onTextMessageReceived: textMessage => {
+                    console.log('onTextMessageReceived', textMessage);
+                    CometChat.CometChatHelper.getConversationFromMessage(textMessage).then(
+                        conversation => {
+                            console.log('conversation', conversation);
+                        }
+                    )
+                    if (textMessage.receiverID !== this.loggedInUserData.uid) {
+                        this.groupMessages.push(textMessage);
+                        this.moveToBottom();
+                    }
+                },
+                onMediaMessageReceived: mediaMessage => {
+                    console.log('onMediaMessageReceived', mediaMessage);
+                    if (mediaMessage.receiverID !== this.loggedInUserData.uid) {
+                        this.groupMessages.push(mediaMessage);
+                        this.moveToBottom();
+                    }
+                },
+                onCutomMessageReceived: customMessage => {
+                    console.log('onCutomMessageReceived', customMessage);
+                    if (customMessage.receiverID !== this.loggedInUserData.uid) {
+                        this.groupMessages.push(customMessage);
+                        this.moveToBottom();
+                    }
+                },
+                onMessagesDelivered: (messageReceipt: CometChat.MessageReceipt) => {
+                    console.log('onMessagesDelivered', messageReceipt);
+                },
+                onMessagesRead: (messageReceipt: CometChat.MessageReceipt) => {
+                    console.log('onMessagesRead', messageReceipt);
+                }
+            })
+        );
+    }
+
+    addTypingListner() {
+        const listenerId = 'GroupTypingListner';
+        CometChat.addMessageListener(
+            listenerId,
+            new CometChat.MessageListener({
+                onTypingStarted: (typingIndicator) => {
+                    console.log('onTypingStarted', typingIndicator);
+                    if (typingIndicator.sender.uid !== this.loggedInUserData.uid) {
+                        const name = typingIndicator.sender.name + ' is typing...';
+                        this.currentTypingUserIndicator = name;
+                    }
+                },
+                onTypingEnded: (typingIndicator) => {
+                    console.log('onTypingEnded', typingIndicator);
+                    if (typingIndicator.sender.uid !== this.loggedInUserData.uid) {
+                        this.currentTypingUserIndicator = '';
+                    }
+                }
+            })
+        );
 
     }
-  }
 
-  checkBlur() {
-    console.log('checkBlur called');
-    const receiverId = this.currentGroupData.guid;
-    const receiverType = CometChat.RECEIVER_TYPE.GROUP;
+    sendMessage() {
+        if (this.messageText !== '') {
+            const receiverType = CometChat.RECEIVER_TYPE.GROUP;
+            const textMessage = new CometChat.TextMessage(this.currentGroupData.guid, this.messageText, receiverType);
+            CometChat.sendMessage(textMessage).then(
+                message => {
+                    console.log('send Message', message);
+                    CometChat.CometChatHelper.getConversationFromMessage(message).then(
+                        conversation => {
+                            console.log('conversation', conversation);
+                            this.groupMessages.push(message);
+                            this.messageText = '';
+                            this.moveToBottom();
+                        }
+                    )
+                },
+                error => {
+                    console.log('Message sending failed with error:', error);
+                }
+            );
 
-    const typingNotification = new CometChat.TypingIndicator(receiverId, receiverType);
-    CometChat.endTyping(typingNotification);
-  }
+        }
+    }
 
-  checkFocus() {
-    console.log('checkFocus called');
-  }
+    checkBlur() {
+        const receiverId = this.currentGroupData.guid;
+        const receiverType = CometChat.RECEIVER_TYPE.GROUP;
+        const typingNotification = new CometChat.TypingIndicator(receiverId, receiverType);
+        CometChat.endTyping(typingNotification);
+    }
 
-  checkInput() {
-    console.log('checkInput called');
-    const receiverId = this.currentGroupData.guid;
-    const receiverType = CometChat.RECEIVER_TYPE.GROUP;
-
-    const typingNotification = new CometChat.TypingIndicator(receiverId, receiverType);
-    CometChat.startTyping(typingNotification);
-  }
+    checkInput() {
+        const receiverId = this.currentGroupData.guid;
+        const receiverType = CometChat.RECEIVER_TYPE.GROUP;
+        const typingNotification = new CometChat.TypingIndicator(receiverId, receiverType);
+        CometChat.startTyping(typingNotification);
+    }
 
 }

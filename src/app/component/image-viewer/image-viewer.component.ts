@@ -2,16 +2,16 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-image-viewer',
-  templateUrl: './image-viewer.component.html',
-  styleUrls: ['./image-viewer.component.scss']
+    selector: 'app-image-viewer',
+    templateUrl: './image-viewer.component.html',
+    styleUrls: ['./image-viewer.component.scss']
 })
 export class ImageViewerComponent implements OnInit {
-  constructor(private modalController: ModalController) {}
+    constructor(private modalController: ModalController) { }
 
-  ngOnInit() {}
+    ngOnInit() { }
 
-  closeModal() {
-    this.modalController.dismiss();
-  }
+    closeModal() {
+        this.modalController.dismiss();
+    }
 }

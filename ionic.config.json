@@ -1,7 +1,8 @@
 {
   "name": "CometChatPRO-IonicSampleApp",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }

@@ -8,6 +8,12 @@
         <div class="Inline"><span style="padding:5px;" >{{currentGroupData.name}}</span></div>
         <p style="margin: 0px; font-size: small; padding-bottom: 2px;">{{currentTypingUserIndicator}}</p>  
       </ion-title>
+      <ion-buttons slot="end" (click)="initiateCall('audio')" style="margin-right: 20px;">
+				<ion-icon style="height: 32px; width: 32px; color: black;" name="call"></ion-icon>
+			</ion-buttons>
+			<ion-buttons slot="end" (click)="initiateCall('video')" style="margin-right: 20px;">
+				<ion-icon style="height: 32px; width: 32px; color: black;" name="videocam"></ion-icon>
+			</ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -26,10 +32,15 @@
             <ion-input class="chat-editor-box" placeholder="Type Your Message Here.." type="text" [(ngModel)]="messageText" (ionBlur)="checkBlur()"
             (ionFocus)="checkFocus()" (ionInput)="checkInput()"></ion-input>
             <div class="btnSendChatView">
-          <button item-right clear (click)='sendMessage()' class = "btnSendChatView">
-            <ion-icon name="send" class="btnSendChat"></ion-icon>
-          </button>
-          </div>
+              <button item-right clear (click)='showActionSheet()' class = "btnAttachMediaView">
+              <ion-icon name="attach" class="btnAttachMedia"></ion-icon>
+              </button>
+            </div>
+            <div class="btnSendChatView">
+              <button item-right clear (click)='sendMessage()' class = "btnSendChatView">
+                <ion-icon name="send" class="btnSendChat"></ion-icon>
+              </button>
+            </div>
       </div>
     </ion-toolbar>
 </ion-footer>

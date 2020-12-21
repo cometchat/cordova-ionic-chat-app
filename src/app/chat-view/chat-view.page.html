@@ -1,14 +1,20 @@
 <ion-header>
-  <ion-toolbar>
-      <ion-buttons slot="start" (click)="goHome()">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
-    <ion-title>
-      <div class="Inline"><img src="{{currentData.avatar || 'https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1' }}" class="circular"></div>
-      <div class="Inline"><span style="padding:5px;" >{{currentData.name}}</span></div>
-      <p style="margin: 0px; font-size: small; padding-bottom: 2px;">{{currentUserStatus}}</p>
-    </ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+			<ion-buttons slot="start" (click)="goHome()">
+				<ion-back-button></ion-back-button>
+			</ion-buttons>
+			<ion-title>
+			<div class="Inline"><img src="{{currentData.avatar || 'https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1' }}" class="circular"></div>
+			<div class="Inline"><span style="padding:5px;" >{{currentData.name}}</span></div>
+			<p style="margin: 0px; font-size: small; padding-bottom: 2px;">{{currentUserStatus}}</p>
+			</ion-title>
+			<ion-buttons slot="end" (click)="initiateCall('audio')" style="margin-right: 20px;">
+				<ion-icon style="height: 32px; width: 32px; color: black;" name="call"></ion-icon>
+			</ion-buttons>
+			<ion-buttons slot="end" (click)="initiateCall('video')" style="margin-right: 20px;">
+				<ion-icon style="height: 32px; width: 32px; color: black;" name="videocam"></ion-icon>
+			</ion-buttons>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content padding #content [scrollEvents]="true" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)" (ionScrollEnd)="logScrollEnd()">
