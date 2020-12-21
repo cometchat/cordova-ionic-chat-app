@@ -27,16 +27,9 @@ CometChat ionic Demo app (built using **CometChat Pro**) is a fully functional m
 # Installation 
 ### Note : This project is under progress.
 
-  For more info you can go through our documentation [CometChat-Pro Documentation](https://prodocs.cometchat.com/docs/js-quick-start)
+  For more info you can go through our documentation [CometChat-Pro Documentation](https://prodocs.cometchat.com/docs/cordova-ionic-quick-start)
   
 # Config-App
-   
-
-  <h2> v2.0+ </h2>
-  <h4>
-    Git clone and checkout v2 branch.
-  </h4>
-  <h4>Get your Application Keys</h4>
 
   <a href="https://app.cometchat.io/" target="_blank">Signup for CometChat</a> and then:
 
@@ -48,51 +41,46 @@ CometChat ionic Demo app (built using **CometChat Pro**) is a fully functional m
 
   4. Now note the API Key and App ID
 
-  5. Replace  `appID`, &nbsp; `apiKey` and &nbsp; `appRegion` in **src/app/login/login.page.ts** with your APP ID, &nbsp; API KEY &nbsp;and&nbsp; APP Region respectively.<br/>
-
-  <h2> v1.0+ </h2>
-
-  <h4>
-    Git clone and checkout v1 branch.
-  </h4>
-
-  <h4>Get your Application Keys</h4>
-
-  <a href="https://app.cometchat.io/" target="_blank">Signup for CometChat</a> and then:
-
-  1. Create a new app - select version as v1
-
-  2. Head over to the API Keys section and click on the Create API Key button<br/>
-
-  3. Enter a name and select the scope as Auth Only<br/>
-
-  4. Now note the API Key and App ID<br/>
-
-  5. Replace  `appID`, &nbsp; `apiKey` in **src/app/login/login.page.ts** with your APP ID, &nbsp;and&nbsp; API KEY respectively.<br/>
+  5. Replace  `appID`, &nbsp; `apiKey` and &nbsp; `appRegion` in **src/app/login/login.page.ts** with your APP ID,&nbsp;AUTH KEY&nbsp;and&nbsp;APP Region respectively.<br/>
 
   # Running the sample app 
 
   Once you have changed the app key values you can install the dependencies and run the project: 
     
   ```
-  npm install
+    npm install
   ```
 
+  You must build your Ionic project at least once before adding any native platforms.
+  
   ```
-   $ ionic serve -l
-   ```
- 
- The above command will run the App in your browser.
- 
- To run the App in device simulator you can run the below command : 
- 
- ```
-   $ ionic cordova emulate ios --target=iPhone-6s
+    ionic build
   ```
- 
- Note : You can change the platform (ios/android) and target(device on which you want) in the above command.
- 
- 
+
+  This creates the www folder that Capacitor has been automatically configured to use as the webDir in capacitor.config.json.
+  
+  ```
+    npx cap add ios
+    npx cap add android
+  ```
+  
+  Both android and ios folders at the root of the project are created. These are entirely separate native project artifacts that should be considered part of your Ionic app (i.e., check them into source control, edit them in their own IDEs, etc.).
+  
+  ```
+    npx cap open ios
+    npx cap open android
+  ```
+  The native iOS and Android projects are opened in their standard IDEs (Xcode and Android Studio, respectively). Use the IDEs to run and deploy your app.
+
+  Every time you perform a build (e.g. ionic build) that changes your web directory (default: www), you’ll need to copy those changes down to your native projects:
+
+  ```
+    npx cap copy
+  ```
+
+  # Push Notification
+
+  To get Push Notification working you need to replace the google-services.json & GoogleService-Info.plist file present in android/app & ios/app respectively. Also, do not forget to add your Firebase Server Key in CometChat Dashboard. Please check the Push Notification Extension Documentation [here](https://prodocs.cometchat.com/docs/ionic-cordova-extensions-enhanced-push-notification). You can check the documentation of capacitor plugin for [Push Notification](https://capacitorjs.com/docs/guides/push-notifications-firebase) setup.
  # Contributing 
    
-   Feel free to make a suggestion by creating a pull request.
+  Feel free to make a suggestion by creating a pull request.

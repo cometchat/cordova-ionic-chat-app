@@ -20,14 +20,9 @@ const { PushNotifications, Storage } = Plugins;
 export class LoginPage implements OnInit {
     public userUID: string;
     // tslint:disable-next-line:no-inferrable-types
-    public appID: string = "24958738083736c";
-    public apiKey: string = "8a5eb7dfb907f21dd697cf3e4cce4263f487d65d";
-    public appRegion: string = "us";
-
-    // public appID: string = "1066625ca50d45b";
-    // public apiKey: string = "6d84d553fa3a4c8a3f186fe6050c087197b3dc64";
-    // public appRegion: string = "eu";
-    
+    public appID: string = "APP_ID";
+    public apiKey: string = "AUTH_KEY";
+    public appRegion: string = "REGION";
 
     public chatID: string = 'superhero1';
 
