@@ -190,7 +190,7 @@ export class ChatViewPage implements OnInit {
                             console.log('conversation', conversation);
                         }
                     )
-                    if (textMessage.receiverId === this.loggedInUserData.getUid()) {
+                    if (textMessage.receiverId === this.loggedInUserData.getUid() && textMessage.sender.uid === this.currentData.uid) {
                         this.userMessages.push(textMessage);
                         this.sendReadReceipts(textMessage);
                         this.moveToBottom();
@@ -198,7 +198,7 @@ export class ChatViewPage implements OnInit {
                 },
                 onMediaMessageReceived: (mediaMessage) => {
                     console.log('CC: onMediaMessageReceived', mediaMessage);
-                    if (mediaMessage.receiverId === this.loggedInUserData.getUid()) {
+                    if (mediaMessage.receiverId === this.loggedInUserData.getUid() && mediaMessage.sender.uid === this.currentData.uid) {
                         this.userMessages.push(mediaMessage);
                         this.sendReadReceipts(mediaMessage);
                         this.moveToBottom();
@@ -206,7 +206,7 @@ export class ChatViewPage implements OnInit {
                 },
                 onCutomMessageReceived: (customMessage) => {
                     console.log('CC: onCutomMessageReceived', customMessage);
-                    if (customMessage.receiverId === this.loggedInUserData.getUid()) {
+                    if (customMessage.receiverId === this.loggedInUserData.getUid() && customMessage.sender.uid === this.currentData.uid) {
                         this.userMessages.push(customMessage);
                         this.sendReadReceipts(customMessage);
                         this.moveToBottom();
@@ -224,13 +224,13 @@ export class ChatViewPage implements OnInit {
                 },
                 onTypingStarted: (typingIndicator: CometChat.TypingIndicator) => {
                     console.log('CC: onTypingStarted', typingIndicator);
-                    if (typingIndicator.getSender().getUid() === this.currentData.uid) {
+                    if (typingIndicator.getSender().getUid() === this.currentData.uid && typingIndicator.getReceiverId() === this.loggedInUserData.getUid()) {
                         this.currentUserStatus = 'typing....';
                     }
                 },
                 onTypingEnded: (typingIndicator: CometChat.TypingIndicator) => {
                     console.log('CC: onTypingEnded', typingIndicator);
-                    if (typingIndicator.getSender().getUid() === this.currentData.uid) {
+                    if (typingIndicator.getSender().getUid() === this.currentData.uid && typingIndicator.getReceiverId() === this.loggedInUserData.getUid()) {
                         this.currentUserStatus = this.currentData.status;
                     }
                 }

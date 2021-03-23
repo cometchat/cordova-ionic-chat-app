@@ -273,21 +273,21 @@ export class GroupchatViewPage implements OnInit {
                             console.log('conversation', conversation);
                         }
                     )
-                    if (textMessage.receiverID !== this.loggedInUserData.uid) {
+                    if (textMessage.receiverId === this.currentGroupData.guid) {
                         this.groupMessages.push(textMessage);
                         this.moveToBottom();
                     }
                 },
                 onMediaMessageReceived: mediaMessage => {
                     console.log('onMediaMessageReceived', mediaMessage);
-                    if (mediaMessage.receiverID !== this.loggedInUserData.uid) {
+                    if (mediaMessage.receiverId === this.currentGroupData.guid) {
                         this.groupMessages.push(mediaMessage);
                         this.moveToBottom();
                     }
                 },
                 onCutomMessageReceived: customMessage => {
                     console.log('onCutomMessageReceived', customMessage);
-                    if (customMessage.receiverID !== this.loggedInUserData.uid) {
+                    if (customMessage.receiverId !== this.currentGroupData.guid) {
                         this.groupMessages.push(customMessage);
                         this.moveToBottom();
                     }

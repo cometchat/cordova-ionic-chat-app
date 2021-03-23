@@ -10,7 +10,7 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':cometchat-pro-ionic-calls')
-    implementation "com.android.support:appcompat-v7:23+"
+    implementation "com.android.support:appcompat-v7:27.+"
 }
 apply from: "../../node_modules/cordova-plugin-telerik-imagepicker/src/android/ignorelinterrors.gradle"
 apply from: "../../node_modules/cordova-plugin-telerik-imagepicker/src/android/androidtarget.gradle"
